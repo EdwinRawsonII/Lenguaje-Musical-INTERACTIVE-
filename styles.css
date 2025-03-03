@@ -4,6 +4,24 @@
     --background-color: #c2c3c3;
 }
 
+
+
+#opciones {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.checkbox-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.checkbox-container label {
+    margin: 0 10px;
+}
+
+
+
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f9;

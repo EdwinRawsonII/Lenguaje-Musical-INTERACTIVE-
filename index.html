@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Piano Interactivo</title>
     <link rel="stylesheet" href="styles.css">
+
 </head>
 
 <body>
@@ -162,22 +163,144 @@
     <h2>Reproducir Acordes partiendo de la tonalidad DO MAYOR como I° Grado</h2>
 
     <!-- Botones para reproducir acordes -->
-    <button onclick="playDOmayor('./Sounds/acordes/acorde-DO-MAYOR')">C Mayor (I)</button>
-    <button onclick="playREmenor('./Sounds/acordes/acorde-RE-menor')">D Menor (II)</button>
-    <button onclick="playMImenor('./Sounds/acordes/acorde-MI-menor')">E Menor (III)</button>
-    <button onclick="playFAMAYOR('./Sounds/acordes/acorde-FA-MAYOR')">F Mayor (IV)</button>
-    <button onclick="playSOLMAYOR('./Sounds/acordes/acorde-SOL-MAYOR')">G Mayor (V)</button>
-    <button onclick="playLAmenor('./Sounds/acordes/acorde-LA-menor')">A Menor (VI)</button>
-    <button onclick="playSIdisminuido('./Sounds/acordes/acorde-SI-disminuido')">B Disminuido (VII)</button>
+    <button onclick="playDOmayor()">C Mayor (I)</button>
+    <button onclick="playREmenor()">D Menor (II)</button>
+    <button onclick="playMImenor()">E Menor (III)</button>
+    <button onclick="playFAMAYOR()">F Mayor (IV)</button>
+    <button onclick="playSOLMAYOR()">G Mayor (V)</button>
+    <button onclick="playLAmenor()">A Menor (VI)</button>
+    <button onclick="playSIdisminuido()">B Disminuido (VII)</button>
 </div>
 
+  <!--
+<section class="bloques">
+    <h2>Elija los grados que apareceran:</h2>
+    <dir class="bloques">
+<div class="btn-group-toggle" data-toggle="buttons">
+    <label class="btn btn-primary">
+        <input onclick="playDOmayor('')"  type="checkbox"> I°
+    </label>
+</div>
+<div class="btn-group-toggle" data-toggle="buttons">
+    <label class="btn btn-primary">
+        <input onclick="playREmenor()" type="checkbox"> II°
+    </label>
+</div>
+<div class="btn-group-toggle" data-toggle="buttons">
+    <label class="btn btn-primary">
+        <input onclick="playMImenor()" type="checkbox"> III°
+    </label>
+</div>
+<div class="btn-group-toggle" data-toggle="buttons">
+    <label class="btn btn-primary">
+        <input onclick="playFAMAYOR()" type="checkbox"> IV°
+    </label>
+</div>
+<div class="btn-group-toggle" data-toggle="buttons">
+    <label class="btn btn-primary">
+        <input onclick="playSOLMAYOR()" type="checkbox"> V°
+    </label>
+</div>
+<div class="btn-group-toggle" data-toggle="buttons">
+    <label class="btn btn-primary">
+        <input onclick="playLAmenor()" type="checkbox"> VI°
+    </label>
+</div>
+<div class="btn-group-toggle" data-toggle="buttons">
+    <label class="btn btn-primary">
+        <input onclick="playSIdisminuido()" type="checkbox"> VII°
+    </label>
+</div></dir>
+</section>   -->
+    
 
 
-    <footer>
+
+
+ <!--
+<div class="container mt-5">
+    <section class="bloques">
+        <h2>Elija los grados que aparecerán:</h2>
+        <div class="bloques">
+            <div class="btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-primary">
+                    <input type="checkbox" onclick="playDOmayor()"> I°
+                </label>
+            </div>
+            <div class="btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-primary">
+                    <input type="checkbox" onclick="playREmenor()"> II°
+                </label>
+            </div>
+            <div class="btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-primary">
+                    <input type="checkbox" onclick="playMImenor()"> III°
+                </label>
+            </div>
+            <div class="btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-primary">
+                    <input type="checkbox" onclick="playFAMAYOR()"> IV°
+                </label>
+            </div>
+            <div class="btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-primary">
+                    <input type="checkbox" onclick="playSOLMAYOR()"> V°
+                </label>
+            </div>
+            <div class="btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-primary">
+                    <input type="checkbox" onclick="playLAmenor()"> VI°
+                </label>
+            </div>
+            <div class="btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-primary">
+                    <input type="checkbox" onclick="playSIdisminuido()"> VII°
+                </label>
+            </div>
+        </div>
+    </section>
+
+    <div>
+        <h2>Selecciona los grados:</h2>
+        <input type="checkbox" onclick="playDOmayor()" value="I"> I°
+        <input type="checkbox" onclick="playREmenor()" value="II"> II°
+        <input type="checkbox" onclick="playMImenor()" value="III"> III°
+        <input type="checkbox" onclick="playFAMAYOR()" value="IV"> IV°
+        <input type="checkbox" onclick="playSOLMAYOR()" value="V"> V°
+        <input type="checkbox" onclick="playLAmenor()" value="VI"> VI°
+        <input type="checkbox" onclick="playSIdisminuido()" value="VII"> VII°
+    </div>
+    
+    <button onclick="iniciarEjercicio()">Iniciar Ejercicio</button>
+    
+    <div id="resultados"></div>
+    <div id="opciones"></div> -->
+
+    
+    <div class="checkbox-container">
+        <label><input type="checkbox" value="I"> DO Mayor (I)</label>
+        <label><input type="checkbox" value="II"> RE Menor (II)</label>
+        <label><input type="checkbox" value="III"> MI Menor (III)</label>
+        <label><input type="checkbox" value="IV"> FA Mayor (IV)</label>
+        <label><input type="checkbox" value="V"> SOL Mayor (V)</label>
+        <label><input type="checkbox" value="VI"> LA Menor (VI)</label>
+        <label><input type="checkbox" value="VII"> SI Disminuido (VII)</label>
+    </div>
+
+    <div>
+        <button onclick="iniciarEjercicio()">Iniciar Ejercicio</button>
+    </div>
+
+    <div id="opciones"></div>
+    <div id="resultados"></div>
+
+
+<footer>
         <p class="derechos"> ®Desing by: Angel Perla <a href=""></a></p>
     </footer>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js">
 </script>-->
+
 
 </body>
 

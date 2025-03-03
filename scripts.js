@@ -243,9 +243,169 @@ function playSIdisminuido() {
 
 
 // Ejemplo de uso:
-playDoMayor(); // Llamar a esta función para reproducir el acorde de DO Mayor
+//  playDoMayor(),playREmenor(),playMImenor(),playFAMAYOR(),playSOLMAYOR(),playLAmenor(),playSIdisminuido(); // Llamar a esta función para reproducir el acorde de DO Mayor
 
 //////////////////////
 
+let intentos = 0;
+const maxIntentos = 10;
+let resultadosSecuencia = [];  // Guardará la secuencia aleatoria generada
+let respuestasIncorrectas = 0; // Contador de respuestas incorrectas
+
+// Función para iniciar el ejercicio de forma aleatoria
+function iniciarEjercicio() {
+    const gradosSeleccionados = getGradosSeleccionados();
+    if (gradosSeleccionados.length === 0) {
+        alert('Por favor, seleccione al menos un grado.');
+        return;
+    }
+
+    // Generar una secuencia aleatoria de grados seleccionados
+    const secuencia = generarSecuenciaAleatoria(gradosSeleccionados);
+    resultadosSecuencia = secuencia;
+    reproducirSecuencia(secuencia);  // Reproducir la secuencia automáticamente
+}
+
+// Función para obtener los grados seleccionados
+function getGradosSeleccionados() {
+    const grados = [];
+    document.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
+        grados.push(checkbox.value);
+    });
+    return grados;
+}
+
+// Función para generar una secuencia aleatoria de grados seleccionados
+function generarSecuenciaAleatoria(gradosSeleccionados) {
+    const secuencia = [];
+    for (let i = 0; i < maxIntentos; i++) {
+        const gradoAleatorio = gradosSeleccionados[Math.floor(Math.random() * gradosSeleccionados.length)];
+        secuencia.push(gradoAleatorio);
+    }
+    return secuencia;
+}
+
+// Función para reproducir la secuencia de grados aleatorios
+function reproducirSecuencia(secuencia) {
+    const audioMap = {
+        "I": playDoMayor,   // Función para Do Mayor
+        "II": playREmenor,  // Función para Re Menor
+        "III": playMImenor, // Función para Mi Menor
+        "IV": playFAMAYOR,  // Función para Fa Mayor
+        "V": playSOLMAYOR,  // Función para Sol Mayor
+        "VI": playLAmenor,  // Función para La Menor
+        "VII": playSIdisminuido // Función para Si Disminuido
+    };
+
+    let currentIndex = 0;
+
+    function playNextChord() {
+        if (currentIndex < secuencia.length) {
+            const grado = secuencia[currentIndex];
+            audioMap[grado](); // Llamamos a la función correspondiente
+            currentIndex++;
+            // Continuar al siguiente acorde cuando termine el actual
+            setTimeout(playNextChord, 1000); // Pausa de 1 segundo entre acordes
+        } else {
+            // Una vez que la secuencia haya sido reproducida, mostrar las opciones
+            mostrarOpciones(secuencia);
+        }
+    }
+
+    // Iniciar la reproducción
+    playNextChord();
+}
+
+// Función para mostrar las opciones de grados para elegir después de reproducir la secuencia
+function mostrarOpciones(secuencia) {
+    const opcionesList = document.getElementById('opciones');
+    opcionesList.innerHTML = '';  // Limpiar opciones anteriores
+
+    secuencia.forEach((grado, index) => {
+        const button = document.createElement('button');
+        button.textContent = `Selecciona el grado: ${grado}`;
+        button.onclick = function() {
+            verificarRespuesta(grado, index);  // Verificar si la respuesta es correcta
+        };
+        opcionesList.appendChild(button);
+    });
+}
+
+// Función para verificar la respuesta seleccionada
+function verificarRespuesta(seleccion, intentoIndex) {
+    const esCorrecto = resultadosSecuencia[intentoIndex] === seleccion;
+
+    if (esCorrecto) {
+        alert('¡Correcto!');
+    } else {
+        alert('Incorrecto. El grado correcto era ' + resultadosSecuencia[intentoIndex]);
+        respuestasIncorrectas++;
+    }
+
+    // Verificar si se completaron todos los intentos
+    intentos++;
+    if (intentos === maxIntentos) {
+        mostrarResultadoFinal();
+    }
+}
+
+// Función para mostrar los resultados finales
+function mostrarResultadoFinal() {
+    alert(`El ejercicio ha terminado. Respuestas incorrectas: ${respuestasIncorrectas} de ${maxIntentos}.`);
+    // Resetear para el siguiente intento
+    intentos = 0;
+    respuestasIncorrectas = 0;
+    resultadosSecuencia = [];
+
+    // Limpiar las opciones para que el usuario pueda reiniciar el ejercicio
+    document.getElementById('opciones').innerHTML = '';
+}
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function generarSecuenciaAleatoria(gradosSeleccionados) {
+    const secuencia = [];
+    let gradosDisponibles = []; // Copia de los grados disponibles
+    for (let i = 0; i < maxIntentos; i++) {
+        // Asegurarse de que no se repitan los grados
+        const gradoAleatorio = gradosDisponibles.splice(Math.floor(Math.random() * gradosDisponibles.length), 1)[0];
+        secuencia.push(gradoAleatorio);
+    }
+    return secuencia;
+}
+
+function playNextChord() {
+    if (currentIndex < secuencia.length) {
+        const grado = secuencia[currentIndex];
+        audioMap[grado](); // Llamamos a la función correspondiente
+        currentIndex++;
+        // Ajustar la pausa según la duración de la nota
+        setTimeout(playNextChord, 1500); // Ajuste de tiempo
+    } else {
+        mostrarOpciones(secuencia);
+    }
+}
