@@ -193,7 +193,7 @@ const notiFiles = {
 
 // Función para reproducir un acorde usando múltiples notas
 function playChord(notes) {
-    const sounds = notes.map(note => new Audio(notiFiles[note])); // Crear un array de audios
+    const sounds = notes.map(note => new Audio(notiFiles[not])); // Crear un array de audios
 
     // Reproducir todas las notas al mismo tiempo
     sounds.forEach(sound => sound.play().catch(error => console.log('Error al reproducir el acorde:', error)));
@@ -246,13 +246,11 @@ function playSIdisminuido() {
 //  playDoMayor(),playREmenor(),playMImenor(),playFAMAYOR(),playSOLMAYOR(),playLAmenor(),playSIdisminuido(); // Llamar a esta función para reproducir el acorde de DO Mayor
 
 //////////////////////
-
 let intentos = 0;
 const maxIntentos = 10;
-let resultadosSecuencia = [];  // Guardará la secuencia aleatoria generada
-let respuestasIncorrectas = 0; // Contador de respuestas incorrectas
+let resultadosSecuencia = [];
+let respuestasIncorrectas = 0;
 
-// Función para iniciar el ejercicio de forma aleatoria
 function iniciarEjercicio() {
     const gradosSeleccionados = getGradosSeleccionados();
     if (gradosSeleccionados.length === 0) {
@@ -260,13 +258,11 @@ function iniciarEjercicio() {
         return;
     }
 
-    // Generar una secuencia aleatoria de grados seleccionados
     const secuencia = generarSecuenciaAleatoria(gradosSeleccionados);
     resultadosSecuencia = secuencia;
-    reproducirSecuencia(secuencia);  // Reproducir la secuencia automáticamente
+    reproducirSecuencia(secuencia);
 }
 
-// Función para obtener los grados seleccionados
 function getGradosSeleccionados() {
     const grados = [];
     document.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
@@ -275,7 +271,6 @@ function getGradosSeleccionados() {
     return grados;
 }
 
-// Función para generar una secuencia aleatoria de grados seleccionados
 function generarSecuenciaAleatoria(gradosSeleccionados) {
     const secuencia = [];
     for (let i = 0; i < maxIntentos; i++) {
@@ -285,16 +280,15 @@ function generarSecuenciaAleatoria(gradosSeleccionados) {
     return secuencia;
 }
 
-// Función para reproducir la secuencia de grados aleatorios
 function reproducirSecuencia(secuencia) {
     const audioMap = {
-        "I": playDoMayor,   // Función para Do Mayor
-        "II": playREmenor,  // Función para Re Menor
-        "III": playMImenor, // Función para Mi Menor
-        "IV": playFAMAYOR,  // Función para Fa Mayor
-        "V": playSOLMAYOR,  // Función para Sol Mayor
-        "VI": playLAmenor,  // Función para La Menor
-        "VII": playSIdisminuido // Función para Si Disminuido
+        "I": playDOmayor,
+        "II": playREmenor,
+        "III": playMImenor,
+        "IV": playFAMAYOR,
+        "V": playSOLMAYOR,
+        "VI": playLAmenor,
+        "VII": playSIdisminuido
     };
 
     let currentIndex = 0;
@@ -302,110 +296,78 @@ function reproducirSecuencia(secuencia) {
     function playNextChord() {
         if (currentIndex < secuencia.length) {
             const grado = secuencia[currentIndex];
-            audioMap[grado](); // Llamamos a la función correspondiente
+            audioMap[grado]();
             currentIndex++;
-            // Continuar al siguiente acorde cuando termine el actual
-            setTimeout(playNextChord, 1000); // Pausa de 1 segundo entre acordes
+            setTimeout(playNextChord, 1500);
         } else {
-            // Una vez que la secuencia haya sido reproducida, mostrar las opciones
             mostrarOpciones(secuencia);
         }
     }
 
-    // Iniciar la reproducción
     playNextChord();
 }
 
-// Función para mostrar las opciones de grados para elegir después de reproducir la secuencia
 function mostrarOpciones(secuencia) {
     const opcionesList = document.getElementById('opciones');
-    opcionesList.innerHTML = '';  // Limpiar opciones anteriores
+    opcionesList.innerHTML = '';
 
     secuencia.forEach((grado, index) => {
         const button = document.createElement('button');
         button.textContent = `Selecciona el grado: ${grado}`;
         button.onclick = function() {
-            verificarRespuesta(grado, index);  // Verificar si la respuesta es correcta
+            verificarRespuesta(grado, index);
         };
         opcionesList.appendChild(button);
     });
 }
 
-// Función para verificar la respuesta seleccionada
 function verificarRespuesta(seleccion, intentoIndex) {
     const esCorrecto = resultadosSecuencia[intentoIndex] === seleccion;
+    const resultadoElement = document.getElementById('resultado');
 
     if (esCorrecto) {
-        alert('¡Correcto!');
+        resultadoElement.textContent = '¡Correcto!';
+        resultadoElement.className = 'text-success';
     } else {
-        alert('Incorrecto. El grado correcto era ' + resultadosSecuencia[intentoIndex]);
+        resultadoElement.textContent = `Incorrecto. El grado correcto era ${resultadosSecuencia[intentoIndex]}`;
+        resultadoElement.className = 'text-danger';
         respuestasIncorrectas++;
     }
 
-    // Verificar si se completaron todos los intentos
     intentos++;
     if (intentos === maxIntentos) {
         mostrarResultadoFinal();
     }
 }
 
-// Función para mostrar los resultados finales
 function mostrarResultadoFinal() {
     alert(`El ejercicio ha terminado. Respuestas incorrectas: ${respuestasIncorrectas} de ${maxIntentos}.`);
-    // Resetear para el siguiente intento
     intentos = 0;
     respuestasIncorrectas = 0;
     resultadosSecuencia = [];
-
-    // Limpiar las opciones para que el usuario pueda reiniciar el ejercicio
     document.getElementById('opciones').innerHTML = '';
 }
 
+// Funciones de audio (reemplaza con tus archivos de audio)
+function playDOmayor() { playChord(['DO-4', 'MI-4', 'SOL-4']); }
+function playREmenor() { playChord(['RE-4', 'FA-4', 'LA-4']); }
+function playMImenor() { playChord(['MI-4', 'SOL-4', 'SI-4']); }
+function playFAMAYOR() { playChord(['FA-4', 'LA-4', 'DO-4']); }
+function playSOLMAYOR() { playChord(['SOL-4', 'SI-4', 'RE-4']); }
+function playLAmenor() { playChord(['LA-4', 'DO-4', 'MI-4']); }
+function playSIdisminuido() { playChord(['SI-4', 'RE-4', 'FA-4']); }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function generarSecuenciaAleatoria(gradosSeleccionados) {
-    const secuencia = [];
-    let gradosDisponibles = []; // Copia de los grados disponibles
-    for (let i = 0; i < maxIntentos; i++) {
-        // Asegurarse de que no se repitan los grados
-        const gradoAleatorio = gradosDisponibles.splice(Math.floor(Math.random() * gradosDisponibles.length), 1)[0];
-        secuencia.push(gradoAleatorio);
-    }
-    return secuencia;
-}
-
-function playNextChord() {
-    if (currentIndex < secuencia.length) {
-        const grado = secuencia[currentIndex];
-        audioMap[grado](); // Llamamos a la función correspondiente
-        currentIndex++;
-        // Ajustar la pausa según la duración de la nota
-        setTimeout(playNextChord, 1500); // Ajuste de tiempo
-    } else {
-        mostrarOpciones(secuencia);
-    }
+function playChord(notes) {
+    const notiFiles = {
+        'DO-4': './Sounds/DO-4.wav',
+        'RE-4': './Sounds/RE-4.wav',
+        'MI-4': './Sounds/MI-4.wav',
+        'FA-4': './Sounds/FA-4.wav',
+        'SOL-4': './Sounds/SOL-4.wav',
+        'LA-4': './Sounds/LA-4.wav',
+        'SI-4': './Sounds/SI-4.wav',
+        'DO-5': './Sounds/DO-5.wav',
+    };
+    const sounds = notes.map(note => new Audio(notiFiles[note]));
+    sounds.forEach(sound => sound.play().catch(error => console.log('Error al reproducir el acorde:', error)));
 }
