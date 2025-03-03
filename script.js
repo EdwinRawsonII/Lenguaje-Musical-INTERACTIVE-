@@ -249,6 +249,7 @@ function playSIdisminuido() {
 let intentos = 0;
 const maxIntentos = 10;
 let resultadosSecuencia = [];
+let respuestasUsuario = Array(maxIntentos).fill(null); // Almacena las respuestas del usuario
 let respuestasIncorrectas = 0;
 
 function iniciarEjercicio() {
@@ -299,53 +300,42 @@ function reproducirSecuencia(secuencia) {
             audioMap[grado]();
             currentIndex++;
             setTimeout(playNextChord, 1500);
-        } else {
-            mostrarOpciones(secuencia);
         }
     }
 
     playNextChord();
 }
 
-function mostrarOpciones(secuencia) {
-    const opcionesList = document.getElementById('opciones');
-    opcionesList.innerHTML = '';
-
-    secuencia.forEach((grado, index) => {
-        const button = document.createElement('button');
-        button.textContent = `Selecciona el grado: ${grado}`;
-        button.onclick = function() {
-            verificarRespuesta(grado, index);
-        };
-        opcionesList.appendChild(button);
-    });
-}
-
-function verificarRespuesta(seleccion, intentoIndex) {
-    const esCorrecto = resultadosSecuencia[intentoIndex] === seleccion;
-    const resultadoElement = document.getElementById('resultado');
-
-    if (esCorrecto) {
-        resultadoElement.textContent = '¡Correcto!';
-        resultadoElement.className = 'text-success';
-    } else {
-        resultadoElement.textContent = `Incorrecto. El grado correcto era ${resultadosSecuencia[intentoIndex]}`;
-        resultadoElement.className = 'text-danger';
-        respuestasIncorrectas++;
+function verificarTarea() {
+    let todasCorrectas = true;
+    for (let i = 0; i < maxIntentos; i++) {
+        const gradoSeleccionado = respuestasUsuario[i];
+        const gradoCorrecto = resultadosSecuencia[i];
+        if (gradoSeleccionado !== gradoCorrecto) {
+            todasCorrectas = false;
+            document.getElementById('resultado').textContent = `Secuencia ${i + 1}: Incorrecto. Era ${gradoCorrecto}.`;
+            document.getElementById('resultado').className = 'text-danger';
+            break;
+        }
     }
-
-    intentos++;
-    if (intentos === maxIntentos) {
-        mostrarResultadoFinal();
+    if (todasCorrectas) {
+        document.getElementById('resultado').textContent = '¡Tarea completada correctamente!';
+        document.getElementById('resultado').className = 'text-success';
     }
 }
 
-function mostrarResultadoFinal() {
-    alert(`El ejercicio ha terminado. Respuestas incorrectas: ${respuestasIncorrectas} de ${maxIntentos}.`);
-    intentos = 0;
-    respuestasIncorrectas = 0;
-    resultadosSecuencia = [];
-    document.getElementById('opciones').innerHTML = '';
+function seleccionarGrado(indiceSecuencia, grado) {
+    respuestasUsuario[indiceSecuencia] = grado; // Guarda la respuesta del usuario
+    const dropdown = document.querySelectorAll('.dropdown')[indiceSecuencia];
+    const botones = dropdown.querySelectorAll('.dropdown-content button');
+    botones.forEach(boton => boton.classList.remove('seleccionado'));
+    const botonSeleccionado = dropdown.querySelector(`[data-grado="${grado}"]`);
+    botonSeleccionado.classList.add('seleccionado');
+}
+
+function activarSecuencia(indiceSecuencia) {
+    const dropdown = document.querySelectorAll('.dropdown')[indiceSecuencia];
+    dropdown.classList.toggle('activo');
 }
 
 // Funciones de audio (reemplaza con tus archivos de audio)
