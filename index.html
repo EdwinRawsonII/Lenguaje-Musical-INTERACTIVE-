@@ -137,14 +137,16 @@
             <label for="switch-label" class="switch-button__label"></label>
         </div>
 
+
         <script src="./scripts.js"></script>
         <div><p>Se puede activar y desactivar el ejercicio para usar solo el piano si lo desea</p></div>
     </section>
 
-    <h1>Ejercicio de Acordes en la Escala Mayor</h1>
+    <!--  <h1>Ejercicio de Acordes en la Escala Mayor</h1>
 
+   
     <div class="chord-buttons">
-        <!-- Botones para cada acorde -->
+        /// Botones para cada acorde//// 
         <button onclick="playChord('./Sounds/acordes/acorde-DO-MAYOR')">C Mayor (I)</button>
         <button onclick="playChord('./Sounds/acordes/acorde-RE-menor')">D Menor (II)</button>
         <button onclick="playChord('./Sounds/acordes/acorde-MI-menor')">E Menor (III)</button>
@@ -154,7 +156,22 @@
         <button onclick="playChord('./Sounds/acordes/acorde-SI-disminuido')">B Disminuido (VII)</button>
     </div>
 
-    <button id="play-sequence">Ejecutar Secuencia</button>
+    <button id="play-sequence">Ejecutar Secuencia</button>  -->
+
+<div class="chord-buttons">
+    <h2>Reproducir Acordes partiendo de la tonalidad DO MAYOR como I° Grado</h2>
+
+    <!-- Botones para reproducir acordes -->
+    <button onclick="playDOmayor('./Sounds/acordes/acorde-DO-MAYOR')">C Mayor (I)</button>
+    <button onclick="playREmenor('./Sounds/acordes/acorde-RE-menor')">D Menor (II)</button>
+    <button onclick="playMImenor('./Sounds/acordes/acorde-MI-menor')">E Menor (III)</button>
+    <button onclick="playFAMAYOR('./Sounds/acordes/acorde-FA-MAYOR')">F Mayor (IV)</button>
+    <button onclick="playSOLMAYOR('./Sounds/acordes/acorde-SOL-MAYOR')">G Mayor (V)</button>
+    <button onclick="playLAmenor('./Sounds/acordes/acorde-LA-menor')">A Menor (VI)</button>
+    <button onclick="playSIdisminuido('./Sounds/acordes/acorde-SI-disminuido')">B Disminuido (VII)</button>
+</div>
+
+
 
     <footer>
         <p class="derechos"> ®Desing by: Angel Perla <a href=""></a></p>

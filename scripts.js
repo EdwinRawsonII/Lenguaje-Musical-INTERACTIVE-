@@ -123,7 +123,7 @@ window.onload = function() {
         ease: 'power1.inOut'
     });
 };
-
+/*
 // Asegúrate de que las rutas de los archivos de audio sean correctas
 let audioC = new Audio('./Sounds/acordes/acorde-DO-MAYOR.wav');
 let audioD = new Audio('./Sounds/acordes/acorde-RE-menor.wav');
@@ -175,3 +175,77 @@ function playProgression() {
 
 // Ejecutar la secuencia cuando se hace clic en el botón
 document.getElementById('play-sequence').addEventListener('click', playProgression);
+
+*/
+
+// Definir las notas y sus sonidos en un objeto
+const notiFiles = {
+    'DO-4': './Sounds/DO-4.wav',
+    'RE-4': './Sounds/RE-4.wav',
+    'MI-4': './Sounds/MI-4.wav',
+    'FA-4': './Sounds/FA-4.wav',
+    'SOL-4': './Sounds/SOL-4.wav',
+    'LA-4': './Sounds/LA-4.wav',
+    'SI-4': './Sounds/SI-4.wav',
+    'DO-5': './Sounds/DO-5.wav',
+    // Si es necesario, puedes agregar más notas aquí
+};
+
+// Función para reproducir un acorde usando múltiples notas
+function playChord(notes) {
+    const sounds = notes.map(note => new Audio(notiFiles[note])); // Crear un array de audios
+
+    // Reproducir todas las notas al mismo tiempo
+    sounds.forEach(sound => sound.play().catch(error => console.log('Error al reproducir el acorde:', error)));
+}
+
+// Función para reproducir el acorde DO MAYOR
+function playDOmayor() {
+    // El acorde de DO Mayor está formado por las notas DO-4, MI-4 y SOL-4
+    playChord(['DO-4', 'MI-4', 'SOL-4']);
+}
+
+// Función para reproducir el acorde RE menor
+function playREmenor() {
+    // El acorde de RE Menor está formado por las notas RE-4, FA-4 y LA-4
+    playChord(['RE-4', 'FA-4', 'LA-4']);
+}
+
+// Función para reproducir el acorde MI menor
+function playMImenor() {
+    // El acorde de MI menor está formado por las notas MI-4, SOL-4 y SI-4
+    playChord(['MI-4', 'SOL-4', 'SI-4']);
+}
+
+// Función para reproducir el acorde FA mayor
+function playFAMAYOR() {
+    // El acorde de FA MAYOR está formado por las notas FA-4, LA-4 y DO-4
+    playChord(['FA-4', 'LA-4', 'DO-4']);
+}
+
+// Función para reproducir el acorde SOL MAYOR
+function playSOLMAYOR() {
+    // El acorde de SOL MAYOR está formado por las notas SOL-4, SI-4 y RE-4
+    playChord(['SOL-4', 'SI-4', 'RE-4']);
+}
+
+// Función para reproducir el acorde LA menor
+function playLAmenor() {
+    // El acorde de LA menor está formado por las notas LA-4, DO-4 y MI-4
+    playChord(['LA-4', 'DO-4', 'MI-4']);
+}
+
+// Función para reproducir el acorde SI disminuido
+function playSIdisminuido() {
+    // El acorde de SI disminuido está formado por las notas SI-4, RE-4 y FA-4
+    playChord(['SI-4', 'RE-4', 'FA-4']);
+}
+
+
+// Ejemplo de uso:
+playDoMayor(); // Llamar a esta función para reproducir el acorde de DO Mayor
+
+//////////////////////
+
+
+
